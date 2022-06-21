@@ -14,13 +14,12 @@ def reaction(maybe_fruit)
   end
 end
 
-=begin
-class Exception
-  initialize(message)
+class NotRealFriendError < StandardError
+  def message
+    "Todavía no nos conocemos por bastante tiempo"
+  end
 
-  @message = message
-
-=end
+end
 
 def feed_me_a_fruit
   puts "Hello, I am a friendly monster. :)"
@@ -44,7 +43,7 @@ end
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
     if(yrs_known < 5)
-      raise ArgumentError.new("Todavía no nos conocemos por bastante tiempo")
+      raise NotRealFriendError
     else  
       @yrs_known = yrs_known
     end
@@ -74,10 +73,11 @@ class BestFriend
 end
 
 # reaction("papaya")
-jacqueline = BestFriend.new("Jacqueline", 6, "high-intensity zumba knitting")
+jacqueline = BestFriend.new("Jacqueline", 8, "high-intensity zumba knitting") # mess with this
+jacqueline.give_friendship_bracelet
 
 begin
-  neil = BestFriend.new("", 7, "")
+  neil = BestFriend.new("a", 7, "b")  # you can mess with this
 
 rescue ArgumentError => err
   puts err.message
